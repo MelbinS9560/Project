@@ -1,0 +1,83 @@
+{% load static%}
+
+
+<section class="home-sec" id="home">
+    <div class="container">
+        <div class="home-content">
+            <div class="row">
+                <div class="col-lg-6 align-item-center">
+                    <div class="home-info">
+                        <h1>Alone we can do little, together we can do so much</h1>
+                        <h2>We <span>JOINUS foundation</span> manage wastage for needy peoples</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nobis voluptates modi.</p>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6 order-first order-lg-last">
+                    <div class="img-sec">
+                        <img src="{% static 'image/img-1.png'%}" alt="home-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="don-sec" id="donation">
+    <div class="container">
+        <div class="heading">
+            <h2>We Manage Wastage or Donation like..</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/clothing.png'%}" alt="img">
+                    <h3>Clothes</h3>
+                    <p>Share warmth, spread hope, donate clothes today!</p>
+                    <a href="{% url 'registering_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/sneakers.png'%}" alt="img">
+                    <h3>Footware</h3>
+                    <p>Step into kindness, one pair at a time</p>
+                    <a href="{% url 'registering_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/salary.png'%}" alt="img">
+                    <h3>Fund</h3>
+                    <p>Every penny counts, be the change!</p>
+                    <a href="{% url 'payment_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/gadgets.png'%}" alt="img">
+                    <h3>Gadgets</h3>
+                    <p>Empower minds, your unused gadgets can change lives</p>
+                    <a href="{% url 'registering_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/book.png'%}" alt="img">
+                    <h3>Stationary</h3>
+                    <p>Write brighter futures, donate stationery supplies.</p>
+                    <a href="{% url 'registering_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="don-box">
+                    <img src="{%static 'image/shopping-bag.png'%}" alt="img">
+                    <h3>Food</h3>
+                    <p>Nourish lives with your kindness</p>
+                    <a href="{% url 'registering_page'%}" class="btn1">Donate Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

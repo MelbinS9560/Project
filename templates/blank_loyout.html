@@ -1,0 +1,153 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOINUS
+    </title>
+    <link rel="stylesheet" href="{% static 'css/rpyfl.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+    <div class="fixed-top" >
+
+        <header>
+            
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="#home"><img src="{% static 'image/logo.png'%}" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        {%include 'menu.html'%}
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="cont-sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>Contact No : <a href="tel: +9198659****59">+91 98659****59</a></p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="social">
+                            <a href="#"><img src="img/icons/facebook.png" alt="facebook"></a>
+                            <a href="#"><img src="img/icons/instagram.png" alt="inatagram"></a>
+                            <a href="#"><img src="img/icons/youtube.png" alt="youtube"></a>
+                            <a href="#"><img src="img/icons/linkedin.png" alt="linkedin"></a>
+                            <a href="#"><img src="img/icons/gmail.png" alt="gnail"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>   
+    
+    {% block content%}
+
+    <h1>content...</h1>
+
+    {% endblock content%}
+
+    {% block extra_scripts%}
+
+    {% endblock %}
+
+    
+
+
+        
+    
+
+
+
+    <footer id="contact">
+        
+        <div class="container" >
+            <h4 style="padding-left: 350px;color: rgb(18, 18, 18); font-weight: bold;">LETS MAKE A DIFFERENCE</h4>
+
+            <h3 style="padding-left: 390px;color: rgb(18, 18, 18); font-weight: bolder;" >GET IN TOUCH</h3>
+            
+            <br>
+            <div class="row">
+                
+
+                <div class="col-lg-4">
+                    
+                    <div class="col-one">
+                        <h4 style="font-weight: bolder; color:#212529 ;">joinus foundation</h4>
+                        <p>Address : 3, Near IT Park, Mahatma Gandhi Road, Mumbai 440000 </p>
+                        <p>Contact No : <a href="tel: +91 98659****59">+91 98659****59</a></p>
+                        <p>Email : <a href="mailto:foundation@code.com">joinusfoundation@code.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="col-two">
+
+                        <br>
+                        <br>
+                       
+                    
+                        <ul>
+                        
+                            <li><h5><a href="{%url 'Donation'%}">Donations</a></h5></li>
+                            <li><h5><a href="{%url 'homepage'%}">Missions</a></h5></li>
+                            <li><h5><a href="{% url 'about_page'%}">About us</a></h5></li>
+                           
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="col-one">
+                        <h4 style="font-weight: bolder; color: #212529;">Social Media</h4>
+                        <div class="social">
+                            <a href="#"><img src="img/icons/facebook.png" alt="facebook"></a>
+                            <a href="#"><img src="img/icons/instagram.png" alt="inatagram"></a>
+                            <a href="#"><img src="img/icons/youtube.png" alt="youtube"></a>
+                            <a href="#"><img src="img/icons/linkedin.png" alt="linkedin"></a>
+                            <a href="#"><img src="img/icons/gmail.png" alt="gnail"></a>
+                        </div>
+                        <p>Copyright &copy; 2025 | All Right Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script >
+
+        document.querySelectorAll('.image-container img').forEach(image => {
+            image.onclick = () => {
+                document.querySelector('.pop-image').style.display = 'block';
+                document.querySelector('.pop-image img').src = image.getAttribute('src');
+            }
+        });
+
+        document.querySelector('.pop-image span').onclick = () => {
+            document.querySelector('.pop-image').style.display = 'none';
+        }        
+
+    
+        
+    
+    </script>
+    <script src="{% static ' js/payment.js'%}"></script>
+    
+</body>
+
+</html>
