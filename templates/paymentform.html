@@ -4,56 +4,47 @@
         <div class="heading">
             <h2>Connect With Us</h2>
             <p>Fill this form, our team will collect your <span>Donation</span> or <span>Wastage</span> from your place.</p>
-            
         </div>
         <div class="row">
-            
             <div class="col-lg-12 mt-5">
-                <form class="contact-form" style="margin-left: 150px;">
-                    
-                    <div class="row">
-                        <div class="form-container">
-                            <div class="container form-btn">
-
-                                <span onclick="bank()">Bank transfer</span>
-                                <span onclick="online()">Online transfer</span>
-                                <hr id="indicator">
-
-
-                            </div>
-                            <form id="bankform" method="post" enctype="multipart/form-data" >
-
-                                {%csrf_token%}
-                                <input type="text" required  placeholder="Accountant Name" name="Accountant Name">
-                                <input type="text" required placeholder="IFSC code" name="IFSC code">
-                                <input type="text" required placeholder="Accountant number" name="Account number">
-                                <input type="text" required placeholder="Reenter Accountnumber" name="Reenter Accountnumber">
-
-                                <button type="submit" class="btn">Pay</button>
-
-
-                            </form>
-                            <form id="onlineform" method="post" enctype="multipart/form-data" >
-
-                                {%csrf_token%}
-
-                                
-                                
-                                <input type="text" required placeholder="Enter your UPI ID" name=" upi_id">
-
-                                <button type="submit" class="btn">Pay</button>
-
-
-                            </form>
-
-
-                        </div>
-                        
-                        
+                <div class="form-container">
+                    <div class="container form-btn">
+                        <span onclick="showBankForm()">Bank Transfer</span>
+                        <span onclick="showOnlineForm()">Online Transfer</span>
+                        <hr id="indicator">
                     </div>
-                </form>
+
+                    <!-- Bank Transfer Form -->
+                    <form id="bankform" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" required placeholder="Accountant Name" name="accountant_name">
+                        <input type="text" required placeholder="IFSC Code" name="ifsc_code">
+                        <input type="text" required placeholder="Account Number" name="account_number">
+                        <input type="text" required placeholder="Re-enter Account Number" name="reenter_account_number">
+                        <button type="submit" class="btn">Pay</button>
+                    </form>
+
+                    <!-- Online Transfer Form -->
+                    <form id="onlineform" method="post" enctype="multipart/form-data" style="display: none;">
+                        {% csrf_token %}
+                        <input type="text" required placeholder="Enter your UPI ID" name="upi_id">
+                        <button type="submit" class="btn">Pay</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    
 </section>
+
+<!-- JavaScript to Toggle Forms -->
+<script>
+    function showBankForm() {
+        document.getElementById("bankform").style.display = "block";
+        document.getElementById("onlineform").style.display = "none";
+    }
+
+    function showOnlineForm() {
+        document.getElementById("bankform").style.display = "none";
+        document.getElementById("onlineform").style.display = "block";
+    }
+</script>

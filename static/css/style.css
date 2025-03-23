@@ -50,7 +50,7 @@ body{
 
 
 header{
-    background-color: #eff1f0;
+    background-color: #ececec;
     width: 100%;
     
 }
@@ -409,3 +409,4 @@ footer .social a img{
 ::-webkit-scrollbar-thumb{
     background: #303054;
 }
+ 
