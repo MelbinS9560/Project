@@ -1,0 +1,178 @@
+{% load static %}
+<section class="contact-section">
+    <div class="container">
+        <div class="heading text-center" style="margin-top: 100px; padding: 20px 0;">
+            <h2 style="font-size: 32px; font-weight: bold; color: #333; text-transform: uppercase; border-bottom: 2px solid #007bff; display: inline-block; padding-bottom: 5px;">
+                Donation Form
+            </h2>
+            <p style="font-size: 18px; color: #555;">Fill out the details below, and our team will arrange for pickup.</p>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 mt-4">
+                <form class="contact-form">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" maxlength="50" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Contact Number:</label>
+                                <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Select Category:</label>
+                                <select class="form-control" id="category" required onchange="toggleFields()">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="clothes">Clothes</option>
+                                    <option value="footwear">Footwear</option>
+                                    <option value="gadgets">Gadgets</option>
+                                    <option value="stationery">Stationery</option>
+                                </select>
+                            </div>
+
+                            <!-- Dynamic Fields -->
+                            <div id="clothes-fields" class="category-fields">
+                                <div class="form-group">
+                                    <label for="clothes-type">Type of Clothes:</label>
+                                    <select class="form-control" id="clothes-type">
+                                        <option value="" disabled selected>Select Clothing Type</option>
+                                        <option value="Shirts">Shirts</option>
+                                        <option value="Pants">Pants</option>
+                                        <option value="Jackets">Jackets</option>
+                                        <option value="Traditional Wear">Traditional Wear</option>
+                                        <option value="Kidswear">Kidswear</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="size">Size:</label>
+                                    <select class="form-control" id="size">
+                                        <option value="" disabled selected>Select Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="Free Size">Free Size</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender(garment):</label>
+                                    <select class="form-control" id="gender">
+                                        <option value="" disabled selected>Select Gender</option>
+                                        <option value="Men">Men</option>
+                                        <option value="Women">Women</option>
+                                        <option value="Unisex">Unisex</option>
+                                        <option value="Kids">Kids</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="footwear-fields" class="category-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="footwear-size">Footwear Size:</label>
+                                    <input type="text" class="form-control" id="footwear-size" placeholder="Enter size">
+                                </div>
+                                <div class="form-group">
+                                    <label for="footwear-type">Type:</label>
+                                    <input type="text" class="form-control" id="footwear-type" placeholder="Enter type (shoes, sandals, etc.)">
+                                </div>
+                            </div>
+
+                            <div id="gadget-fields" class="category-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="gadget-type">Gadget Type:</label>
+                                    <input type="text" class="form-control" id="gadget-type" placeholder="Laptop,Tablet,Phone, etc.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gadget-condition">Condition:</label>
+                                    <select class="form-control" id="gadget-condition">
+                                        <option value="" disabled selected>Select Condition</option>
+                                        <option value="Working">Working</option>
+                                        <option value="Needs Repair">Needs Repair</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="stationery-fields" class="category-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="stationery-type">Type of Stationery:</label>
+                                    <input type="text" class="form-control" id="stationery-type" placeholder="Books, Notebooks, Pens, etc.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stationery-quantity">Quantity:</label>
+                                    <input type="number" class="form-control" id="stationery-quantity" placeholder="Enter quantity" min="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="condition">Condition:</label>
+                                <select class="form-control" id="condition" required>
+                                    <option value="" disabled selected>Select Condition</option>
+                                    <option value="New">New</option>
+                                    <option value="Gently Used">Gently Used</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickup">Preferred Pickup Date & Time:</label>
+                                <input type="datetime-local" class="form-control" id="pickup" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message:</label>
+                                <textarea class="form-control" id="message" cols="30" rows="2" placeholder="Additional details"></textarea>
+                            </div>
+                        </div>
+
+
+                        
+                     <!-- Back & Submit Buttons -->
+                     <div class="col-md-12 mt-3 d-flex justify-content-center">
+                        <button type="button" class="btn1" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                        <button type="submit" class="btn1">Submit Donation</button>
+                    </div>
+                    
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript to Toggle Fields -->
+<script>
+    function toggleFields() {
+        var category = document.getElementById("category").value;
+        document.querySelectorAll(".category-fields").forEach(field => field.style.display = "none");
+
+        if (category === "clothes") {
+            document.getElementById("clothes-fields").style.display = "block";
+        } else if (category === "footwear") {
+            document.getElementById("footwear-fields").style.display = "block";
+        } else if (category === "gadgets") {
+            document.getElementById("gadget-fields").style.display = "block";
+        } else if (category === "stationery") {
+            document.getElementById("stationery-fields").style.display = "block";
+        }
+    }
+</script>

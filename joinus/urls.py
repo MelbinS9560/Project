@@ -27,5 +27,7 @@ urlpatterns = [
     path("",include('homepage.urls')),
     path("",include('About.urls')),
     path("",include('Registration.urls')),
-    path("",include('payment.urls'))
+    path("",include('payment.urls')),
+    path("",include('excess.urls')),
+    path("",include('login.urls'))
 ] 

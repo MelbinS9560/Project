@@ -1,14 +1,14 @@
-{% load static  %}
+{% load static %}
 
 <section class="home-sec">
-        <div class="container">
+    <div class="container">
         <div class="home-content">
             <div class="row">
                 <div class="col-lg-6 align-item-center">
                     <div class="home-info">
                         <h1>Alone we can do little, together we can do so much</h1>
-                        <h2>We <span>JOINUS foundation</span> manage wastage for needy peoples</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nobis voluptates modi.</p>
+                        <h2>We <span>JOINUS Foundation</span> manage wastage for needy people</h2>
+                        <p>Turning excess into impact – donate, share, and make a difference with every contribution...</p>
                         <div class="buttons">
                             <a href="{% url 'Donation'%}" class="btn1">Donate now</a>
                         </div>
@@ -24,29 +24,115 @@
     </div>
 </section>
 
-
+<!-- New Section: Excess Food Management -->
+<section class="food-management">
+    <div class="container">
+        <div class="food-content">
+            <h2>Excess Food Management</h2>
+            <p><big>Every day, tons of food go to waste while millions go hungry. Our mission is to rescue surplus food and deliver it to those in need. By reducing food waste, we fight hunger and protect the environment. Join us in making a difference—because every meal matters!</big></p>
+            <p><strong><big>Be a part of the change. Share. Save. Support.</big></strong></p>
+        </div>
+        <div class="donate-food-box">
+            <h3>Donate Your Excess Food Now!</h3>
+            <p>Be a part of the solution. Your extra food can bring smiles to those in need.</p>
+            <a href="{% url 'excess_page' %}" class="btn2">Donate Food</a>
+        </div>
+    </div>
+</section>
 
 <section class="mission" id="mission-id">
     <div class="container">
         <div class="heading">
             <h2>Our Missions</h2>
-            <p>We have delivered <span>Wastage</span> or <span>Donations</span> to needy Peoples</p>
+            <p>We have delivered <span>Wastage</span> or <span>Donations</span> to needy people</p>
         </div>
         <div class="gallery-sec">
             <div class="container">
                 <div class="image-container">
-                    <div class="image"><img src="{%static 'image/1.jpg'%}" alt="img"></div>
-                    <div class="image"><img src="{%static 'image/2.jpg'%}" alt="img"></div>
-                    <div class="image"><img src="{%static 'image/3.jpg'%}" alt="img"></div>
-                    <div class="image"><img src="{%static 'image/4.jpg'%}" alt="img"></div>
-                    <div class="image"><img src="{%static 'image/5.jpg'%}" alt="img"></div>
-                    <div class="image"><img src="{%static 'image/6.jpg'%}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/1.jpg' %}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/2.jpg' %}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/3.jpg' %}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/4.jpg' %}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/5.jpg' %}" alt="img"></div>
+                    <div class="image"><img src="{% static 'image/6.jpg' %}" alt="img"></div>
                 </div>
             </div>
             <div class="pop-image">
                 <span>&times;</span>
                 <img src="img/gallery/1.jpg" alt="gallery-img">
             </div>
-            </di >
         </div>
 </section>
+
+<!-- Add CSS Styling -->
+<style>
+    .food-management {
+    position: relative;
+    padding: 80px 0;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.food-management::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("{% static 'image/1.jpg' %}") no-repeat center center/cover;
+    opacity: 0.5; /* Adjust this value (0.1 to 1) for transparency */
+    z-index: -1;
+}
+
+
+    .food-management h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .food-management p {
+        font-size: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .donate-food-box {
+        background-color: rgba(81, 81, 81, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        display: inline-block;
+    }
+
+    .donate-food-box h3 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffcc00;
+    }
+
+    .donate-food-box p {
+        font-size: 18px;
+    }
+
+    .btn2 {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: #e38c00;
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+    }
+    .btn2:hover {
+        background-color: #ffc531;
+        color: white;
+        text-decoration: none;
+    }
+</style>

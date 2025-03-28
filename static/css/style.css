@@ -44,6 +44,7 @@ body{
 .btn1:hover{
     background-color: #68f0c9;
     color: #303054;
+    text-decoration: none ;
 }
 
 /* Header */

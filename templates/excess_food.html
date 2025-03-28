@@ -1,0 +1,129 @@
+{% load static %}
+<section class="contact-section">
+    <div class="container">
+        <div class="heading text-center" style="margin-top: 100px; padding: 20px 0;">
+            <h2>Excess Food Donation Form</h2>
+            <p>Help us distribute surplus food to those in need. Fill out the details below.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mt-4">
+                <form class="contact-form">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Contact Number:</label>
+                                <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email (Optional):</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email (optional)">
+                            </div>
+                            <div class="form-group">
+                                <label for="food-type">Type of Food:</label>
+                                <select class="form-control" id="food-type" required>
+                                    <option value="" disabled selected>Select Food Type</option>
+                                    <option value="Cooked">Cooked</option>
+                                    <option value="Packaged">Packaged</option>
+                                    <option value="Raw">Raw</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cuisine">Cuisine Type:</label>
+                                <input type="text" class="form-control" id="cuisine" placeholder="Indian, Chinese, etc." required>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="servings">Approximate Servings:</label>
+                                <input type="number" class="form-control" id="servings" placeholder="How many people can it serve?" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry">Best Before (Date & Time):</label>
+                                <input type="datetime-local" class="form-control" id="expiry" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Pickup Address:</label>
+                                <input type="text" class="form-control" id="address" placeholder="Enter pickup location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickup">Preferred Pickup Date & Time:</label>
+                                <input type="datetime-local" class="form-control" id="pickup" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Additional Notes:</label>
+                                <textarea class="form-control" id="message" cols="30" rows="2" placeholder="Any special instructions?"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Submit and back Button --> 
+                         
+                        <div class="col-md-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn1" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" class="btn1">Donate Food</button>
+                        </div>
+
+                        <script>
+                            function goBack() {
+                                window.history.back();
+                            }
+                        </script>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Styling for Form -->
+<style>
+    .contact-section {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    .heading h2 {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        text-transform: uppercase;
+        border-bottom: 2px solid #007bff;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+    .heading p {
+        font-size: 18px;
+        color: #555;
+        margin-top: 10px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+    .btn1 {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .btn1:hover {
+        background-color: #218838;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+

@@ -1,34 +1,57 @@
-{% load static%}
-<section class="contact-section">
+{% load static %}
+
+<section class="fund-donation-section">
     <div class="container">
         <div class="heading">
-            <h2>Connect With Us</h2>
-            <p>Fill this form, our team will collect your <span>Donation</span> or <span>Wastage</span> from your place.</p>
+            <h2>Fund Donation</h2>
+            <p>Select your preferred payment method and complete your donation.</p>
         </div>
-        <div class="row">
-            <div class="col-lg-12 mt-5">
-                <div class="form-container">
-                    <div class="container form-btn">
-                        <span onclick="showBankForm()">Bank Transfer</span>
-                        <span onclick="showOnlineForm()">Online Transfer</span>
-                        <hr id="indicator">
-                    </div>
 
-                    <!-- Bank Transfer Form -->
-                    <form id="bankform" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="text" required placeholder="Accountant Name" name="accountant_name">
-                        <input type="text" required placeholder="IFSC Code" name="ifsc_code">
-                        <input type="text" required placeholder="Account Number" name="account_number">
-                        <input type="text" required placeholder="Re-enter Account Number" name="reenter_account_number">
-                        <button type="submit" class="btn">Pay</button>
+        <div class="payment-box">
+            <!-- Toggle Buttons for Payment Methods -->
+            <div class="payment-options">
+                <div class="container form-btn">
+                    <span onclick="showOnline()" id="online-btn" class="active"><b>Online Transfer</b></span>
+                    <span onclick="showBank()" id="bank-btn"><b>Bank Transfer</b></span>
+                </div>
+            </div>
+
+            <!-- Donation Forms -->
+            <div class="donation-form">
+                <!-- Online Transfer Form -->
+                <div id="onlineform">
+                    <br>
+                    <h3>Online Transfer</h3>
+                    <p><strong>UPI ID:</strong> joinus123@oksbi</p>
+                    <!-- QR Code for UPI Payment -->
+                    <img src="{% static 'image/My_QR.jpeg' %}" alt="Scan to Pay" class="qr-code">
+                    <form onsubmit="showPopup(event)">
+                        <input type="text" required placeholder="Your Name" name="donor_name">
+                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
+                        <p>After sending the payment, confirm below:</p> 
+                        <div class="col-md-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" class="btn">I have Paid</button>
+                        </div>
                     </form>
+                </div>
 
-                    <!-- Online Transfer Form -->
-                    <form id="onlineform" method="post" enctype="multipart/form-data" style="display: none;">
-                        {% csrf_token %}
-                        <input type="text" required placeholder="Enter your UPI ID" name="upi_id">
-                        <button type="submit" class="btn">Pay</button>
+                <!-- Bank Transfer Form -->
+                <div id="bankform" style="display: none;">
+                    <br>
+                    <h3>Bank Transfer Details</h3>
+                    <p><strong>Account Holder:</strong> Joinus Foundation</p>
+                    <p><strong>Bank Name:</strong> State Bank of India</p>
+                    <p><strong>Account Number:</strong> 33229290488</p>
+                    <p><strong>IFSC Code:</strong> SBIN0001016</p>
+                    <form onsubmit="showPopup(event)">
+                        <input type="text" required placeholder="Your Name" name="donor_name">
+                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
+                        <p>Once you have transferred the amount, please confirm below:</p>
+                        <div class="col-md-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" class="btn">I have Transferred</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -36,15 +59,133 @@
     </div>
 </section>
 
-<!-- JavaScript to Toggle Forms -->
-<script>
-    function showBankForm() {
-        document.getElementById("bankform").style.display = "block";
-        document.getElementById("onlineform").style.display = "none";
+<!-- Popup Message -->
+<div id="thankYouPopup" class="popup">
+    <p>Thank you for your donation! ❤️</p>
+</div>
+
+<!-- JavaScript to Handle Toggle and Popup  -->
+<script> 
+    function showOnline() {
+    document.getElementById("bankform").style.display = "none";
+    document.getElementById("onlineform").style.display = "block";
+
+    document.getElementById("online-btn").classList.add("active");
+    document.getElementById("bank-btn").classList.remove("active");
     }
 
-    function showOnlineForm() {
-        document.getElementById("bankform").style.display = "none";
-        document.getElementById("onlineform").style.display = "block";
+    function showBank() {
+        document.getElementById("bankform").style.display = "block";
+        document.getElementById("onlineform").style.display = "none";
+
+        document.getElementById("bank-btn").classList.add("active");
+        document.getElementById("online-btn").classList.remove("active");
     }
+
+    function showPopup(event) {
+        event.preventDefault();
+        var popup = document.getElementById("thankYouPopup");
+        popup.style.display = "block";
+        setTimeout(function() {
+            popup.style.display = "none";
+        }, 3000);
+    }
+
+    window.onload = function () {
+        showOnline();
+    };
+
+
+    function goBack() {
+        window.history.back();
+        }
 </script>
+
+<!-- CSS for Styling -->
+<style>
+    .fund-donation-section {
+        text-align: center;
+        padding: 60px 20px 40px;
+    }
+
+    .heading {
+        margin-top: 40px;
+    }
+
+    .payment-box {
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        background-color: #f9f9f9;
+    }
+
+    .form-btn {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        cursor: pointer;
+    }
+
+    .form-btn span {
+        font-size: 18px;
+        padding: 10px;
+        border-bottom: 3px solid transparent;
+        transition: 0.3s;
+    }
+
+    .form-btn span:hover, .form-btn span.active {
+        border-bottom: 3px solid #007bff;
+        color: #007bff;
+    }
+
+    .donation-form {
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .donation-form input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #28a745;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 18px;
+        z-index: 1000;
+    }
+</style>
