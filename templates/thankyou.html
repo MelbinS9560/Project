@@ -1,0 +1,8 @@
+{% extends 'blank_layout.html' %}
+{% block content %}
+<div style="text-align: center; padding: 50px;">
+    <h2>Thank You, {{ donor_name }}! ❤️</h2>
+    <p>Your donation has been received successfully.</p>
+    <a href="{% url 'payment_page' %}" class="btn">Make Another Donation</a>
+</div>
+{% endblock %}

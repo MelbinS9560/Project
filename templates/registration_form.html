@@ -1,4 +1,5 @@
 {% load static %}
+
 <section class="contact-section">
     <div class="container">
         <div class="heading text-center" style="margin-top: 100px; padding: 20px 0;">
@@ -8,24 +9,36 @@
             <p style="font-size: 18px; color: #555;">Fill out the details below, and our team will arrange for pickup.</p>
         </div>
 
+        <!-- ✅ Success Message Block -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success-message" style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px; border-radius: 5px; text-align: center;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <div class="row">
             <div class="col-lg-12 mt-4">
-                <form class="contact-form">
+                <form method="POST" class="contact-form">
+                    {% csrf_token %}
                     <div class="row">
                         <!-- Left Column -->
                         <div class="col-lg-6">
+                            <!-- Name -->
                             <div class="form-group">
                                 <label for="name">Full Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" maxlength="50" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" maxlength="50" required>
                             </div>
+                            <!-- Mobile -->
                             <div class="form-group">
                                 <label for="mobile">Contact Number:</label>
-                                <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required>
+                                <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required>
                             </div>
+                            <!-- Category -->
                             <div class="form-group">
                                 <label for="category">Select Category:</label>
-                                <select class="form-control" id="category" required onchange="toggleFields()">
+                                <select class="form-control" id="category" name="category" required onchange="toggleFields()">
                                     <option value="" disabled selected>Select Category</option>
                                     <option value="clothes">Clothes</option>
                                     <option value="footwear">Footwear</option>
@@ -35,10 +48,10 @@
                             </div>
 
                             <!-- Dynamic Fields -->
-                            <div id="clothes-fields" class="category-fields">
+                            <div id="clothes-fields" class="category-fields" style="display: none;">
                                 <div class="form-group">
                                     <label for="clothes-type">Type of Clothes:</label>
-                                    <select class="form-control" id="clothes-type">
+                                    <select class="form-control" id="clothes-type" name="subcategory">
                                         <option value="" disabled selected>Select Clothing Type</option>
                                         <option value="Shirts">Shirts</option>
                                         <option value="Pants">Pants</option>
@@ -50,7 +63,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="size">Size:</label>
-                                    <select class="form-control" id="size">
+                                    <select class="form-control" id="size" name="size">
                                         <option value="" disabled selected>Select Size</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -61,7 +74,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Gender(garment):</label>
-                                    <select class="form-control" id="gender">
+                                    <select class="form-control" id="gender" name="gender">
                                         <option value="" disabled selected>Select Gender</option>
                                         <option value="Men">Men</option>
                                         <option value="Women">Women</option>
@@ -74,22 +87,22 @@
                             <div id="footwear-fields" class="category-fields" style="display: none;">
                                 <div class="form-group">
                                     <label for="footwear-size">Footwear Size:</label>
-                                    <input type="text" class="form-control" id="footwear-size" placeholder="Enter size">
+                                    <input type="text" class="form-control" id="footwear-size" name="size" placeholder="Enter size">
                                 </div>
                                 <div class="form-group">
                                     <label for="footwear-type">Type:</label>
-                                    <input type="text" class="form-control" id="footwear-type" placeholder="Enter type (shoes, sandals, etc.)">
+                                    <input type="text" class="form-control" id="footwear-type" name="subcategory" placeholder="Enter type (shoes, sandals, etc.)">
                                 </div>
                             </div>
 
                             <div id="gadget-fields" class="category-fields" style="display: none;">
                                 <div class="form-group">
                                     <label for="gadget-type">Gadget Type:</label>
-                                    <input type="text" class="form-control" id="gadget-type" placeholder="Laptop,Tablet,Phone, etc.">
+                                    <input type="text" class="form-control" id="gadget-type" name="subcategory" placeholder="Laptop,Tablet,Phone, etc.">
                                 </div>
                                 <div class="form-group">
                                     <label for="gadget-condition">Condition:</label>
-                                    <select class="form-control" id="gadget-condition">
+                                    <select class="form-control" id="gadget-condition" name="condition">
                                         <option value="" disabled selected>Select Condition</option>
                                         <option value="Working">Working</option>
                                         <option value="Needs Repair">Needs Repair</option>
@@ -100,11 +113,7 @@
                             <div id="stationery-fields" class="category-fields" style="display: none;">
                                 <div class="form-group">
                                     <label for="stationery-type">Type of Stationery:</label>
-                                    <input type="text" class="form-control" id="stationery-type" placeholder="Books, Notebooks, Pens, etc.">
-                                </div>
-                                <div class="form-group">
-                                    <label for="stationery-quantity">Quantity:</label>
-                                    <input type="number" class="form-control" id="stationery-quantity" placeholder="Enter quantity" min="1">
+                                    <input type="text" class="form-control" id="stationery-type" name="subcategory" placeholder="Books, Notebooks, Pens, etc.">
                                 </div>
                             </div>
                         </div>
@@ -113,7 +122,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="condition">Condition:</label>
-                                <select class="form-control" id="condition" required>
+                                <select class="form-control" id="condition" name="condition" required>
                                     <option value="" disabled selected>Select Condition</option>
                                     <option value="New">New</option>
                                     <option value="Gently Used">Gently Used</option>
@@ -121,37 +130,27 @@
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity:</label>
-                                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" min="1" required>
+                                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter quantity" min="1" required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Address:</label>
-                                <input type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
                             </div>
                             <div class="form-group">
                                 <label for="pickup">Preferred Pickup Date & Time:</label>
-                                <input type="datetime-local" class="form-control" id="pickup" required>
+                                <input type="datetime-local" class="form-control" id="pickup" name="pickup" required>
                             </div>
                             <div class="form-group">
                                 <label for="message">Message:</label>
-                                <textarea class="form-control" id="message" cols="30" rows="2" placeholder="Additional details"></textarea>
+                                <textarea class="form-control" id="message" name="message" cols="30" rows="2" placeholder="Additional details"></textarea>
                             </div>
                         </div>
 
-
-                        
-                     <!-- Back & Submit Buttons -->
-                     <div class="col-md-12 mt-3 d-flex justify-content-center">
-                        <button type="button" class="btn1" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
-                        <button type="submit" class="btn1">Submit Donation</button>
-                    </div>
-                    
-                    <script>
-                        function goBack() {
-                            window.history.back();
-                        }
-                    </script>
-
-
+                        <!-- Buttons -->
+                        <div class="col-md-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn1" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" class="btn1">Submit Donation</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -159,8 +158,11 @@
     </div>
 </section>
 
-<!-- JavaScript to Toggle Fields -->
 <script>
+    function goBack() {
+        window.history.back();
+    }
+
     function toggleFields() {
         var category = document.getElementById("category").value;
         document.querySelectorAll(".category-fields").forEach(field => field.style.display = "none");
@@ -175,4 +177,12 @@
             document.getElementById("stationery-fields").style.display = "block";
         }
     }
+
+    // Auto-hide message
+    setTimeout(function () {
+        const messageBox = document.querySelector('.success-message');
+        if (messageBox) {
+            messageBox.style.display = 'none';
+        }
+    }, 3000);
 </script>

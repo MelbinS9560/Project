@@ -29,5 +29,10 @@ urlpatterns = [
     path("",include('Registration.urls')),
     path("",include('payment.urls')),
     path("",include('excess.urls')),
-    path("",include('login.urls'))
+    path("",include('login.urls')), 
+    path('', include('donation.urls')),
+    path('excess/', include('excess.urls')),
+
+    
 ] 
+ 

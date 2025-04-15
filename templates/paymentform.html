@@ -25,13 +25,14 @@
                     <p><strong>UPI ID:</strong> joinus123@oksbi</p>
                     <!-- QR Code for UPI Payment -->
                     <img src="{% static 'image/My_QR.jpeg' %}" alt="Scan to Pay" class="qr-code">
-                    <form onsubmit="showPopup(event)">
+                    <form method="POST" action="{% url 'payment' %}">
+                        {% csrf_token %}
                         <input type="text" required placeholder="Your Name" name="donor_name">
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
                         <p>After sending the payment, confirm below:</p> 
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
                             <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
-                            <button type="submit" class="btn">I have Paid</button>
+                            <button type="submit" name="submit" value="I have Paid" class="btn">I have Paid</button>
                         </div>
                     </form>
                 </div>
@@ -44,13 +45,15 @@
                     <p><strong>Bank Name:</strong> State Bank of India</p>
                     <p><strong>Account Number:</strong> 33229290488</p>
                     <p><strong>IFSC Code:</strong> SBIN0001016</p>
-                    <form onsubmit="showPopup(event)">
+                    <form method="POST" action="{% url 'payment' %}">
+                        {% csrf_token %}
                         <input type="text" required placeholder="Your Name" name="donor_name">
+                        <input type="text" required placeholder="Your Account Number" name="donor_account_no">
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
                         <p>Once you have transferred the amount, please confirm below:</p>
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
                             <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
-                            <button type="submit" class="btn">I have Transferred</button>
+                            <button type="submit" name="submit" value="I have Transferred" class="btn">I have Transferred</button>
                         </div>
                     </form>
                 </div>
@@ -80,27 +83,27 @@
 
         document.getElementById("bank-btn").classList.add("active");
         document.getElementById("online-btn").classList.remove("active");
-    }
-
-    function showPopup(event) {
-        event.preventDefault();
-        var popup = document.getElementById("thankYouPopup");
-        popup.style.display = "block";
-        setTimeout(function() {
-            popup.style.display = "none";
-        }, 3000);
-    }
-
+    } 
     window.onload = function () {
         showOnline();
     };
-
 
     function goBack() {
         window.history.back();
         }
 </script>
 
+{% if success %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var popup = document.getElementById("thankYouPopup");
+        popup.style.display = "block";
+        setTimeout(function () {
+            popup.style.display = "none";
+        }, 3000);
+    });
+</script>
+{% endif %}
 <!-- CSS for Styling -->
 <style>
     .fund-donation-section {

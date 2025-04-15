@@ -39,8 +39,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage'
+    'homepage',
+    'login',
+    'Registration',
+    'payment',
+    'excess',
+    'donation',
 ]
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +151,8 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = 'login.CustomUser'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'

@@ -1,10 +1,6 @@
-
-from django.contrib import admin
-from django.urls import path,include
- 
-from django.conf import settings 
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('excess',views.excess,name='excess_page')
-] 
+    path('', views.excess_food_view, name='excess_page'),
+]
