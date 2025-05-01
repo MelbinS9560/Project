@@ -1,5 +1,14 @@
 {% load static %}
 
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            alert("{{ message }}");
+        </script>
+    {% endfor %}
+{% endif %}
+
 <section class="home-sec">
     <div class="container">
         <div class="home-content">
@@ -70,7 +79,7 @@
     /* General Styles */
 
     .home-sec {
-    margin-bottom: 400px; /* Adjust as needed */
+    margin-bottom: 200px; /* Adjust as needed */
 }
 
 .mission {

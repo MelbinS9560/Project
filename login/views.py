@@ -27,34 +27,41 @@ def signup_view(request):
             messages.error(request, "Email already registered!")
             return redirect("login_page")
 
-        # Create user and save it
+        # Create new user
         user = CustomUser.objects.create_user(username=username, email=email, password=password)
         user.save()
 
         messages.success(request, "Account created successfully! Please sign in.")
-        return redirect("login_page")  # Redirects to login page
+        return redirect("login_page")
 
     return render(request, "login.html")
+
 
 # Sign-In View
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "")
+        next_url = request.POST.get("next", "")  # get 'next' from POST
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            #messages.success(request, "Login successful!")
-            return redirect("Donation")  # Change to your actual homepage URL
+            if next_url:  # if 'next' exists, redirect there
+                return redirect(next_url)
+            else:
+                return redirect("Donation")  # else default to Donation
         else:
             messages.error(request, "Invalid credentials!")
+            return render(request, "login.html", {"next": next_url})  # <-- **render here**
 
-    return render(request, "login.html")  # No need to pass error in context
+    next_url = request.GET.get('next', "")  # get 'next' from GET if coming to login page
+    return render(request, "login.html", {"next": next_url})
+
 
 # Logout View
 def logout_view(request):
     logout(request)
-    messages.success(request, "Logged out successfully!")
-    return redirect("login_page")
+    messages.add_message(request, messages.SUCCESS, "Logged out successfully.", extra_tags='logout')
+    return redirect('homepage')  # Redirect to your login page

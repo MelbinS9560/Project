@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In & Sign Up</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Your existing CSS remains exactly the same */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(rgba(35, 35, 35, 0.2), rgba(76, 76, 76, 0.2)),
@@ -30,81 +27,57 @@
             max-width: 500px;
             text-align: center;
         }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .form-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+        h2 { margin-bottom: 20px; color: #333; }
+        .form-group { text-align: left; margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
         .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
+            width: 100%; padding: 12px; border: 1px solid #ccc;
+            border-radius: 6px; outline: none;
         }
         .btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
+            width: 100%; padding: 14px; background-color: #007bff;
+            color: white; border: none; border-radius: 6px;
+            font-size: 16px; cursor: pointer; margin-top: 10px;
             transition: 0.3s;
         }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        .toggle {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        .toggle a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .toggle a:hover {
-            text-decoration: underline;
-        }
-        .hidden {
-            display: none;
-        }
+        .btn:hover { background-color: #0056b3; }
+        .toggle { margin-top: 20px; font-size: 14px; }
+        .toggle a { color: #007bff; text-decoration: none; }
+        .toggle a:hover { text-decoration: underline; }
+        .hidden { display: none; }
         .message {
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 10px;
+            text-align: center; font-size: 14px; margin-bottom: 10px;
+            padding: 15px 25px; border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 1; transition: opacity 0.5s ease, transform 0.3s ease-in-out;
+            transform: translateY(0);
         }
         .error {
-            color: red;
+            color: white; background-color: #e74c3c;
+            border: 1px solid #c0392b; animation: bounce 0.5s ease-out;
         }
         .success {
-            color: green;
+            color: white; background-color: #28a745;
+            border: 1px solid #218838; animation: bounce 0.5s ease-out;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(-10px); }
+            50% { transform: translateY(5px); }
+            100% { transform: translateY(0); }
         }
         @media (max-width: 480px) {
-            .container {
-                padding: 25px;
-            }
+            .container { padding: 25px; }
         }
     </style>
 </head>
-<body> 
+<body>
     <div class="container">
         <!-- Display Django Messages -->
         {% if messages %}
             {% for message in messages %}
-                <p class="message {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+                <div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
                     {{ message }}
-                </p>
+                </div>
             {% endfor %}
         {% endif %}
 
@@ -112,6 +85,7 @@
             <h2>Sign In</h2>
             <form method="POST" action="{% url 'login_page' %}">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
                 <div class="form-group">
                     <label for="signInUsername">Username:</label>
                     <input type="text" id="signInUsername" name="username" placeholder="Enter your username" required>
@@ -157,15 +131,13 @@
             document.getElementById('signUpForm').classList.toggle('hidden');
         }
 
-        // Hide messages after 3 seconds
         setTimeout(function() {
-            let messages = document.querySelectorAll(".message");
-            messages.forEach(function(msg) {
-                msg.style.transition = "opacity 0.5s ease";
-                msg.style.opacity = "0"; // Fades out message
-                setTimeout(() => msg.style.display = "none", 500); // Hides after fade-out
-            });
-        }, 3000); // 3000ms = 3 seconds
+        let messages = document.querySelectorAll(".message");
+        messages.forEach(function(msg) {
+            msg.style.opacity = "0";
+            setTimeout(() => msg.style.display = "none", 500);
+        });
+    }, 2000);  // 2 seconds before disappearing
     </script>
 </body>
 </html>

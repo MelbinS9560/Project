@@ -1,21 +1,55 @@
-{% load static%}
+{% load static %}
 
 <ul class="navbar-nav ml-auto">
-     </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'login_page' %}" style="color: black;">Login <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'homepage'%}" style="color: black;">Home <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'login_page'%}" style="color: black;">Donations<span class="sr-only">(current)</span></a>
-    </li>
-    
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'about_page'%}" style="color: black;">About<span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="#contact" style="color: black;">Contact<span class="sr-only">(current)</span></a>
-    </li>
+    {% if user.is_authenticated %}
+        <!-- Home Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'homepage' %}" style="color: black;">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <!-- About Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about_page' %}" style="color: black;">About <span class="sr-only">(current)</span></a>
+        </li>
+
+        <!-- Contact Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="#contact" style="color: black;">Contact <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="#" style="color: rgb(0, 163, 22);">Welcome, {{ user.username }}</a>
+        </li>    
+
+        <!-- Logout Button -->
+        <li class="nav-item active">
+           <a class="nav-link btn btn-danger" href="{% url 'signout' %}" style="color: white; margin-left: 10px;">Logout</a>
+        </li>
+
+    {% else %}
+        <!-- Login Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'login_page' %}?next={% url 'Donation' %}" style="color: black;">Login <span class="sr-only">(current)</span></a>
+        </li>    
+
+        <!-- Home Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'homepage' %}" style="color: black;">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <!-- Donations Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'login_page' %}?next={% url 'Donation' %}" style="color: black;">Donations <span class="sr-only">(current)</span></a>
+        </li>    
+
+        <!-- About Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about_page' %}" style="color: black;">About <span class="sr-only">(current)</span></a>
+        </li>
+
+        <!-- Contact Button -->
+        <li class="nav-item active">
+            <a class="nav-link" href="#contact" style="color: black;">Contact <span class="sr-only">(current)</span></a>
+        </li>
+    {% endif %}
 </ul>
