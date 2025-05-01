@@ -19,7 +19,11 @@
                         <h2>We <span>JOINUS Foundation</span> manage wastage for needy people</h2><br>
                         <p>Turning excess into impact – donate, share, and make a difference with every contribution...</p>
                         <div class="buttons">
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'Donation' %}" class="btn1">Donate now</a>
+                            {% else %}
                             <a href="{% url 'login_page' %}?next={% url 'Donation' %}" class="btn1">Donate now</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -45,7 +49,11 @@
         <div class="donate-food-box">
             <h3>Donate Your Excess Food Now!</h3>
             <p>Be a part of the solution. Your extra food can bring smiles to those in need.</p><br>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'excess_page' %}" class="btn2">Donate Food</a>
+            {% else %}
             <a href="{% url 'login_page' %}?next={% url 'excess_page' %}" class="btn2">Donate Food</a>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -76,10 +84,9 @@
 
 <!-- Add CSS Styling -->
 <style>
-    /* General Styles */
 
     .home-sec {
-    margin-bottom: 200px; /* Adjust as needed */
+    margin-bottom: 200px; /* bottom margin */
 }
 
 .mission {
@@ -210,7 +217,7 @@
             padding: 10px 20px;
         }
 
-        /* Ensure images resize properly */
+        /* size of images */
         .image-container {
             display: flex;
             flex-wrap: wrap;

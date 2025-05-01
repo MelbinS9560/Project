@@ -54,7 +54,7 @@ def login_view(request):
                 return redirect("Donation")  # else default to Donation
         else:
             messages.error(request, "Invalid credentials!")
-            return render(request, "login.html", {"next": next_url})  # <-- **render here**
+            return render(request, "login.html", {"next": next_url})  #rendering
 
     next_url = request.GET.get('next', "")  # get 'next' from GET if coming to login page
     return render(request, "login.html", {"next": next_url})
@@ -63,5 +63,5 @@ def login_view(request):
 # Logout View
 def logout_view(request):
     logout(request)
-    messages.add_message(request, messages.SUCCESS, "Logged out successfully.", extra_tags='logout')
-    return redirect('homepage')  # Redirect to your login page
+    messages.success(request, "Logged out successfully!")
+    return redirect("homepage")  # Redirects to the homepage
