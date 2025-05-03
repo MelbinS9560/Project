@@ -31,8 +31,8 @@
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
                         <p>After sending the payment, confirm below:</p> 
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
-                            <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
-                            <button type="submit" name="submit" value="I have Paid" class="btn">I have Paid</button>
+                            <button type="button" class="donation-btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" name="submit" value="I have Paid" class="donation-btn">I have Paid</button>
                         </div>
                     </form>
                 </div>
@@ -52,8 +52,9 @@
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
                         <p>Once you have transferred the amount, please confirm below:</p>
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
-                            <button type="button" class="btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
-                            <button type="submit" name="submit" value="I have Transferred" class="btn">I have Transferred</button>
+                            <button type="button" class="donation-btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
+                            <button type="submit" name="submit" value="I have Transferred" class="donation-btn">I have Transferred</button>
+                            
                         </div>
                     </form>
                 </div>
@@ -80,7 +81,6 @@
     function showBank() {
         document.getElementById("bankform").style.display = "block";
         document.getElementById("onlineform").style.display = "none";
-
         document.getElementById("bank-btn").classList.add("active");
         document.getElementById("online-btn").classList.remove("active");
     } 
@@ -155,7 +155,7 @@
         border-radius: 5px;
     }
 
-    .btn {
+    .donation-btn {
         background-color: #007bff;
         color: white;
         border: none;
@@ -165,9 +165,10 @@
         margin-top: 10px;
     }
 
-    .btn:hover {
+    .donation-btn:hover {
         background-color: #0056b3;
     }
+
 
     .qr-code {
         width: 200px;
