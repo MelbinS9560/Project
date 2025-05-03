@@ -17,9 +17,18 @@
             <a class="nav-link" href="#contact" style="color: black;">Contact <span class="sr-only">(current)</span></a>
         </li>
 
+        <!-- Donations Button -->
+        <li class="nav-item active">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'Donation' %}" class="nav-link"style="color: black;">Donations <span class="sr-only">(current)</span></a> 
+            {% else %}
+            <a href="{% url 'login_page' %}?next={% url 'Donation' %}" class="nav-link" style="color: black;">Donations <span class="sr-only">(current)</span></a> 
+            {% endif %}
+        </li>  
+
         <li class="nav-item active">
             <a class="nav-link" href="#" style="color: rgb(0, 163, 22);">Welcome, {{ user.username }}</a>
-        </li>    
+        </li>  
 
         <!-- Logout Button -->
         <li class="nav-item active">
