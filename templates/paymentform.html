@@ -23,12 +23,22 @@
                     <br>
                     <h3>Online Transfer</h3>
                     <p><strong>UPI ID:</strong> joinus123@oksbi</p>
-                    <!-- QR Code for UPI Payment -->
                     <img src="{% static 'image/My_QR.jpeg' %}" alt="Scan to Pay" class="qr-code">
                     <form method="POST" action="{% url 'payment' %}">
                         {% csrf_token %}
-                        <input type="text" required placeholder="Your Name" name="donor_name">
-                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
+                        {% if errors and payment_method == 'online' %}
+                        <div style="color: red; margin-bottom: 10px;">
+                            <ul style="list-style: none; padding: 0;">
+                                {% for field, error_list in errors.items %}
+                                    {% for error in error_list %}
+                                        <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ donor_name|default:'' }}">
+                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount" value="{{ amount|default:'' }}">
                         <p>After sending the payment, confirm below:</p> 
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
                             <button type="button" class="donation-btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
@@ -47,14 +57,24 @@
                     <p><strong>IFSC Code:</strong> SBIN0001016</p>
                     <form method="POST" action="{% url 'payment' %}">
                         {% csrf_token %}
-                        <input type="text" required placeholder="Your Name" name="donor_name">
-                        <input type="text" required placeholder="Your Account Number" name="donor_account_no">
-                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount">
+                        {% if errors and payment_method == 'bank' %}
+                        <div style="color: red; margin-bottom: 10px;">
+                            <ul style="list-style: none; padding: 0;">
+                                {% for field, error_list in errors.items %}
+                                    {% for error in error_list %}
+                                        <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ donor_name|default:'' }}">
+                        <input type="text" required placeholder="Your Account Number" name="donor_account_no" value="{{ donor_account_no|default:'' }}">
+                        <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount" value="{{ amount|default:'' }}">
                         <p>Once you have transferred the amount, please confirm below:</p>
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
                             <button type="button" class="donation-btn" onclick="goBack()" style="margin-right: 10px;">Go Back</button>
                             <button type="submit" name="submit" value="I have Transferred" class="donation-btn">I have Transferred</button>
-                            
                         </div>
                     </form>
                 </div>
@@ -68,14 +88,13 @@
     <p>Thank you for your donation! ❤️</p>
 </div>
 
-<!-- JavaScript to Handle Toggle and Popup  -->
+<!-- JavaScript to Handle Toggle and Popup -->
 <script> 
     function showOnline() {
-    document.getElementById("bankform").style.display = "none";
-    document.getElementById("onlineform").style.display = "block";
-
-    document.getElementById("online-btn").classList.add("active");
-    document.getElementById("bank-btn").classList.remove("active");
+        document.getElementById("bankform").style.display = "none";
+        document.getElementById("onlineform").style.display = "block";
+        document.getElementById("online-btn").classList.add("active");
+        document.getElementById("bank-btn").classList.remove("active");
     }
 
     function showBank() {
@@ -83,14 +102,19 @@
         document.getElementById("onlineform").style.display = "none";
         document.getElementById("bank-btn").classList.add("active");
         document.getElementById("online-btn").classList.remove("active");
-    } 
+    }
+
     window.onload = function () {
-        showOnline();
+        {% if payment_method == 'bank' %}
+            showBank();
+        {% else %}
+            showOnline();
+        {% endif %}
     };
 
     function goBack() {
         window.history.back();
-        }
+    }
 </script>
 
 {% if success %}
@@ -110,11 +134,9 @@
         text-align: center;
         padding: 60px 20px 40px;
     }
-
     .heading {
         margin-top: 40px;
     }
-
     .payment-box {
         border: 2px solid #007bff;
         border-radius: 10px;
@@ -122,31 +144,26 @@
         margin-top: 30px;
         background-color: #f9f9f9;
     }
-
     .form-btn {
         display: flex;
         justify-content: center;
         gap: 20px;
         cursor: pointer;
     }
-
     .form-btn span {
         font-size: 18px;
         padding: 10px;
         border-bottom: 3px solid transparent;
         transition: 0.3s;
     }
-
     .form-btn span:hover, .form-btn span.active {
         border-bottom: 3px solid #007bff;
         color: #007bff;
     }
-
     .donation-form {
         max-width: 400px;
         margin: auto;
     }
-
     .donation-form input {
         width: 100%;
         padding: 10px;
@@ -154,7 +171,6 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-
     .donation-btn {
         background-color: #007bff;
         color: white;
@@ -164,19 +180,15 @@
         cursor: pointer;
         margin-top: 10px;
     }
-
     .donation-btn:hover {
         background-color: #0056b3;
     }
-
-
     .qr-code {
         width: 200px;
         height: 200px;
         margin: 10px auto;
         display: block;
     }
-
     .popup {
         display: none;
         position: fixed;

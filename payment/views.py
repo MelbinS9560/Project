@@ -1,25 +1,35 @@
 from django.shortcuts import render
 from .models import Donation
 from decimal import Decimal
+from django.core.exceptions import ValidationError
 
 def payment(request):
-    print("🔔 Payment view triggered")  # Debug
-
     if request.method == 'POST':
-        print(f"🔍 Form data received: {request.POST}")
         donor_name = request.POST.get('donor_name')
         donor_account_no = request.POST.get('donor_account_no')
         amount = request.POST.get('donation_amount')
-        payment_method = 'online' if 'I have Paid' in request.POST.get('submit', '') else 'bank'
+        submit_value = request.POST.get('submit', '')
 
-        print(f"🧾 Name: {donor_name}, Account: {donor_account_no}, Amount: {amount}, Method: {payment_method}")
+        payment_method = 'online' if 'I have Paid' in submit_value else 'bank'
 
-        Donation.objects.create(
+        donation = Donation(
             donor_name=donor_name,
             donor_account_no=donor_account_no,
             amount=Decimal(amount),
             payment_method=payment_method
         )
-        return render(request, 'paymentpage.html', {'success': True})
+
+        try:
+            donation.full_clean()  # This triggers model validators
+            donation.save()
+            return render(request, 'paymentpage.html', {'success': True})
+        except ValidationError as e:
+            return render(request, 'paymentpage.html', {
+                'errors': e.message_dict,
+                'donor_name': donor_name,
+                'donor_account_no': donor_account_no,
+                'amount': amount,
+                'payment_method': payment_method,  # ✅ Ensures correct form is shown
+            })
 
     return render(request, 'paymentpage.html')
