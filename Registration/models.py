@@ -5,6 +5,11 @@ from django.core.validators import RegexValidator, MinValueValidator
 
 
 class Donation(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Rejected', 'Rejected'),
+    ]
     donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='registration_donations')
 
     name_validator = RegexValidator(regex=r'^[a-zA-Z\s]+$', message='Name should contain only letters and spaces.')
@@ -21,8 +26,10 @@ class Donation(models.Model):
     address = models.TextField()
     pickup_datetime = models.DateTimeField()
     message = models.TextField(blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
 
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.status})"
+

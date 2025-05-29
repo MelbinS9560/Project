@@ -13,6 +13,8 @@ class DonationAdmin(admin.ModelAdmin):
         'condition',
         'quantity',
         'pickup_datetime',
+        'status',  # now valid
     )
     search_fields = ('name', 'category', 'mobile')
-    list_filter = ('category', 'condition', 'gender')
+    list_filter = ('category', 'condition', 'gender', 'status')
+    list_editable = ('status',)

@@ -15,19 +15,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
- 
-from django.conf import settings 
-from homepage import views
-
-from django.contrib import admin
 from django.urls import path, include
+from django.template.response import TemplateResponse
 
+# Import models from all 3 apps
+from payment.models import Donation as PaymentDonation
+from excess.models import ExcessFood
+from Registration.models import Donation as EssentialsDonation
+
+# Custom admin index view
+def custom_admin_index(request):
+    from django.contrib.admin.sites import site
+
+    context = dict(
+        site.each_context(request),
+        pending_payment_donations=PaymentDonation.objects.filter(status='Pending').order_by('-donation_date')[:5],
+        pending_excess_donations=ExcessFood.objects.filter(status='Pending').order_by('-pickup_datetime')[:5],
+        pending_essentials_donations=EssentialsDonation.objects.filter(status='Pending').order_by('-pickup_datetime')[:5],
+    )
+    return TemplateResponse(request, "admin/custom_index.html", context)
+
+# Override default admin index
+admin.site.index = custom_admin_index
+
+# URL patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('', include('homepage.urls')),          # homepage at root
-
+    path('', include('homepage.urls')),
     path('about/', include('About.urls')),
     path('donation/', include('donation.urls')),
     path('excess/', include('excess.urls')),
@@ -37,4 +51,3 @@ urlpatterns = [
     path('payment/', include('payment.urls')),
     path('registration/', include('Registration.urls')),
 ]
-

@@ -71,6 +71,7 @@
           <th>Amount</th>
           <th>Donation method</th>
           <th>Date</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -79,9 +80,20 @@
           <td>{{ donation.amount }}</td>
           <td>{{ donation.payment_method }}</td>
           <td>{{ donation.donation_date|date:"d M Y, H:i" }}</td>
+          <td>
+            {% if donation.status == "Pending" %}
+              <span style="color: orange;">Pending</span>
+            {% elif donation.status == "Received" %}
+              <span style="color: green;">Received</span>
+            {% elif donation.status == "Not Received" %}
+              <span style="color: red;">Not Received</span>
+            {% else %}
+              <span style="color: gray;">Unknown</span>
+            {% endif %}
+          </td>
         </tr>
         {% empty %}
-        <tr><td colspan="3">No money donations found.</td></tr>
+        <tr><td colspan="4">No money donations found.</td></tr>
         {% endfor %}
       </tbody>
     </table>
@@ -96,6 +108,7 @@
           <th>Quantity</th>
           <th>Date</th>
           <th>Message</th>
+          <th>Status</th> <!-- New column -->
         </tr>
       </thead>
       <tbody>
@@ -105,13 +118,25 @@
           <td>{{ donation.servings }}</td>
           <td>{{ donation.submitted_at|date:"d M Y, H:i" }}</td>
           <td>{{ donation.additional_notes|default:"No additional notes" }}</td>
+          <td>
+            {% if donation.status == "Pending" %}
+              <span style="color: orange;">Pending</span>
+            {% elif donation.status == "Approved" %}
+              <span style="color: green;">Approved</span>
+            {% elif donation.status == "Rejected" %}
+              <span style="color: red;">Rejected</span>
+            {% else %}
+              <span style="color: gray;">Unknown</span>
+            {% endif %}
+          </td>
         </tr>
         {% empty %}
-        <tr><td colspan="4">No food donations found.</td></tr>
+        <tr><td colspan="5">No food donations found.</td></tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+  
 
   <div class="section">
     <h3>🎒 Essentials Donations</h3>
@@ -123,6 +148,7 @@
           <th>Condition</th>
           <th>Date</th>
           <th>Message</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -133,9 +159,20 @@
           <td>{{ donation.condition }}</td>
           <td>{{ donation.submitted_at|date:"d M Y, H:i" }}</td>
           <td>{{ donation.message }}</td>
+          <td>
+            {% if donation.status == "Pending" %}
+              <span style="color: orange;">Pending</span>
+            {% elif donation.status == "Approved" %}
+              <span style="color: green;">Approved</span>
+            {% elif donation.status == "Rejected" %}
+              <span style="color: red;">Rejected</span>
+            {% else %}
+              <span style="color: gray;">Unknown</span>
+            {% endif %}
+          </td>
         </tr>
         {% empty %}
-        <tr><td colspan="5">No essentials donations found.</td></tr>
+        <tr><td colspan="6">No essentials donations found.</td></tr>
         {% endfor %}
       </tbody>
     </table>

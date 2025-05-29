@@ -1,0 +1,76 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+  {{ block.super }}
+
+  <h2>💰 Latest Pending Money Donations</h2>
+  <table>
+    <thead>
+      <tr><th>Donor Name</th><th>Amount</th><th>Method</th><th>Date</th></tr>
+    </thead>
+    <tbody>
+      {% for d in pending_payment_donations %}
+        <tr>
+          <td>
+            <a href="/admin/payment/donation/{{ d.id }}/change/">{{ d.donor_name }}</a>
+          </td>
+          <td>₹{{ d.amount }}</td>
+          <td>{{ d.payment_method }}</td>
+          <td>{{ d.donation_date }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">No pending money donations.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>🍱 Latest Pending Excess Food Donations</h2>
+  <table>
+    <thead>
+      <tr><th>Full Name</th><th>Food Type</th><th>Servings</th><th>Pickup</th></tr>
+    </thead>
+    <tbody>
+      {% for d in pending_excess_donations %}
+        <tr>
+          <td>
+            <a href="/admin/excess/excessfood/{{ d.id }}/change/">{{ d.full_name }}</a>
+          <td>{{ d.food_type }}</td>
+          <td>{{ d.servings }}</td>
+          <td>{{ d.pickup_datetime }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">No pending food donations.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>🎒 Latest Pending Essentials Donations</h2>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Category</th><th>Subcategory</th><th>Pickup</th></tr>
+    </thead>
+    <tbody>
+      {% for d in pending_essentials_donations %}
+        <tr>
+          <td>
+            <a href="/admin/Registration/donation/{{ d.id }}/change/">{{ d.name }}</a>
+          </td>
+          <td>{{ d.category }}</td>
+          <td>{{ d.subcategory }}</td>
+          <td>{{ d.pickup_datetime }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">No pending essentials donations.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div style="margin-top: 30px; text-align: center;">
+    <a href="{% url 'admin:excess_excessfood_changelist' %}" 
+       style="display: inline-block; padding: 10px 20px; background-color: #1d72b8; color: white; 
+              text-decoration: none; border-radius: 4px; font-weight: bold;">
+       Go to Models
+    </a>
+  </div>
+  
+{% endblock %}

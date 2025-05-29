@@ -3,6 +3,14 @@ from django.db import models
 from django.core.validators import RegexValidator, MinValueValidator
 
 class Donation(models.Model):
+   
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Received', 'Received'),
+        ('Not Received', 'Not Received'),
+    ]
+
+
     donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_donations')
 
     PAYMENT_METHODS = [
@@ -21,6 +29,7 @@ class Donation(models.Model):
     )
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
     donation_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
 
     def __str__(self):
-        return f"{self.donor_name} - ₹{self.amount} ({self.payment_method})"
+        return f"{self.donor_name} - ₹{self.amount} ({self.payment_method}) [{self.status}]"

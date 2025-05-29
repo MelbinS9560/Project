@@ -11,7 +11,7 @@ def my_donation_history(request):
     # Use correct field names for ordering by date fields
     money_donations = MoneyDonation.objects.filter(donor=user).order_by('-donation_date')
     food_donations = ExcessFood.objects.filter(donor=user).order_by('-submitted_at')
-    essentials_donations = EssentialsDonation.objects.filter(donor=user).order_by('-pickup_datetime')
+    essentials_donations = EssentialsDonation.objects.filter(donor=user).order_by('-submitted_at')
 
 
     context = {
