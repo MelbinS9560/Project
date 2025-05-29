@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'payment',
     'excess',
     'donation',
+    'feedback',
+    'history',
 ]
 
 from django.contrib.messages import constants as messages
@@ -156,3 +158,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'login.CustomUser'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

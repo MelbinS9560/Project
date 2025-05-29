@@ -20,19 +20,21 @@ from django.urls import path,include
 from django.conf import settings 
 from homepage import views
 
+from django.contrib import admin
+from django.urls import path, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-   
-    path("",include('donation.urls')),
-    path("",include('homepage.urls')),
-    path("",include('About.urls')),
-    path("",include('Registration.urls')),
-    path("",include('payment.urls')),
-    path("",include('excess.urls')),
-    path("",include('login.urls')), 
-    path('', include('donation.urls')),
-    path('excess/', include('excess.urls')),
 
-    
-] 
- 
+    path('', include('homepage.urls')),          # homepage at root
+
+    path('about/', include('About.urls')),
+    path('donation/', include('donation.urls')),
+    path('excess/', include('excess.urls')),
+    path('feedback/', include('feedback.urls')),
+    path('history/', include('history.urls')),
+    path('login/', include('login.urls')),
+    path('payment/', include('payment.urls')),
+    path('registration/', include('Registration.urls')),
+]
+

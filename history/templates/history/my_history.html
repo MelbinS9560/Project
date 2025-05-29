@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Donation History</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    h3 {
+      color: #34495e;
+      margin-top: 40px;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eaf2f8;
+      color: #2c3e50;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    td[colspan] {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>My Donation History</h2>
+
+  <div class="section">
+    <h3>💸 Money Donations</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Donation method</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donation in money_donations %}
+        <tr>
+          <td>{{ donation.amount }}</td>
+          <td>{{ donation.payment_method }}</td>
+          <td>{{ donation.donation_date|date:"d M Y, H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No money donations found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>🍱 Food Donations</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donation in food_donations %}
+        <tr>
+          <td>{{ donation.cuisine_type }}</td>
+          <td>{{ donation.servings }}</td>
+          <td>{{ donation.submitted_at|date:"d M Y, H:i" }}</td>
+          <td>{{ donation.additional_notes|default:"No additional notes" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No food donations found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>🎒 Essentials Donations</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Condition</th>
+          <th>Date</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donation in essentials_donations %}
+        <tr>
+          <td>{{ donation.category }}</td>
+          <td>{{ donation.quantity }}</td>
+          <td>{{ donation.condition }}</td>
+          <td>{{ donation.submitted_at|date:"d M Y, H:i" }}</td>
+          <td>{{ donation.message }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No essentials donations found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

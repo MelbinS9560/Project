@@ -1,12 +1,14 @@
+from django.conf import settings
 from django.db import models
 from django.core.validators import RegexValidator, MinValueValidator
 
 class Donation(models.Model):
+    donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_donations')
+
     PAYMENT_METHODS = [
         ('online', 'Online Transfer'),
         ('bank', 'Bank Transfer'),
     ]
-
     name_validator = RegexValidator(regex=r'^[a-zA-Z\s]+$', message='Name should contain only letters and spaces.')
     account_validator = RegexValidator(regex=r'^\d{8,20}$', message='Account number should be 8 to 20 digits.')
 

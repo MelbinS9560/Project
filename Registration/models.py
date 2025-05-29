@@ -1,7 +1,12 @@
 from django.db import models
+from django.conf import settings
 from django.core.validators import RegexValidator, MinValueValidator
 
+
+
 class Donation(models.Model):
+    donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='registration_donations')
+
     name_validator = RegexValidator(regex=r'^[a-zA-Z\s]+$', message='Name should contain only letters and spaces.')
     phone_validator = RegexValidator(regex=r'^\d{10}$', message='Enter a valid 10-digit mobile number.')
 
@@ -16,6 +21,8 @@ class Donation(models.Model):
     address = models.TextField()
     pickup_datetime = models.DateTimeField()
     message = models.TextField(blank=True)
+
+    submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

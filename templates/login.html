@@ -94,6 +94,10 @@
                     <label for="signInPassword">Password:</label>
                     <input type="password" id="signInPassword" name="password" placeholder="Enter your password" required>
                 </div>
+                <p style="text-align: right; font-size: 14px;">
+                    <a href="{% url 'password_reset' %}" style="color: #007bff; text-decoration: none;">Forgot Password?</a>
+                </p>
+                
                 <button type="submit" class="btn">Sign In</button>
                 <p class="toggle">Don't have an account? <a href="#" onclick="toggleForms()">Sign Up</a></p>
             </form>

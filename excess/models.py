@@ -1,7 +1,11 @@
 from django.db import models
+from django.conf import settings
 from django.core.validators import RegexValidator, MinValueValidator, MaxLengthValidator, EmailValidator
 
+
+
 class ExcessFood(models.Model):
+    donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     FOOD_TYPE_CHOICES = [
         ('Cooked', 'Cooked'),
         ('Packaged', 'Packaged'),

@@ -26,12 +26,15 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="name">Full Name:</label>
-                                <input type="text" class="form-control" name="full_name" id="name" placeholder="Enter your full name" required>
+                                <!--<input type="text" class="form-control" name="full_name" id="name" placeholder="Enter your full name" required>
+                                <input type="text" class="form-control" name="full_name" placeholder="Enter your full name" required value="{{ user.username }}" readonly/>-->
+                                <input type="text" class="form-control" name="full_name" placeholder="Enter your full name" required value="{{ user.username }}"/>
                             </div>
                             <div class="form-group">
                                 <label for="mobile">Contact Number:</label>
                                 <input type="tel" class="form-control" name="contact_number" id="mobile" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="email">Email (Optional):</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email (optional)">

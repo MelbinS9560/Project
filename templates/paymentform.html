@@ -37,7 +37,7 @@
                             </ul>
                         </div>
                         {% endif %}
-                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ donor_name|default:'' }}">
+                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ user.username }}" />
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount" value="{{ amount|default:'' }}">
                         <p>After sending the payment, confirm below:</p> 
                         <div class="col-md-12 mt-3 d-flex justify-content-center">
@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                         {% endif %}
-                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ donor_name|default:'' }}">
+                        <input type="text" required placeholder="Your Name" name="donor_name" value="{{ user.username }}"/>
                         <input type="text" required placeholder="Your Account Number" name="donor_account_no" value="{{ donor_account_no|default:'' }}">
                         <input type="number" required placeholder="Enter Amount (₹)" name="donation_amount" value="{{ amount|default:'' }}">
                         <p>Once you have transferred the amount, please confirm below:</p>

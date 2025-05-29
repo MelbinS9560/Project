@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback Form</title>
+  <style>
+    body {
+        background: url("{% static 'image/1.jpg' %}") no-repeat center center fixed;
+        background-size: cover;  /* Stretch image to cover entire screen */
+        font-family: Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        position: relative;      /* Needed for the ::before overlay */
+        z-index: 0;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Light dim effect */
+        z-index: -1; /* Send behind all content */
+    }
+
+  
+    .feedback-container {
+      max-width: 500px;
+      margin: 200px auto; /* Top and bottom spacing added here */
+      background: rgba(255, 255, 255, 0.9);
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 100px; 
+    }
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+  
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+  
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+
+  width: 200px;              /* Set a fixed width */
+  display: block;
+  margin: 20px auto 0 auto;  /* Center horizontally */
+  text-align: center;
+}
+
+
+  
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="feedback-container">
+    <h2>Feedback Form</h2>
+    <form action="{% url 'submit_feedback' %}" method="POST">
+      {% csrf_token %}
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" value="{{ user.username }}" readonly />
+
+      <label for="rating">Rating</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>Select your rating</option>
+        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+        <option value="4">⭐⭐⭐⭐ Good</option>
+        <option value="3">⭐⭐⭐ Average</option>
+        <option value="2">⭐⭐ Poor</option>
+        <option value="1">⭐ Very Poor</option>
+      </select>
+
+      <label for="message">Your Feedback</label>
+      <textarea id="message" name="message" placeholder="Write your feedback here..." required></textarea>
+
+      <input type="submit" value="Submit Feedback"/>
+    </form>
+  </div>
+</body>
+</html>
